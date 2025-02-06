@@ -1,0 +1,190 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        #image {
+            width: 300px;
+            height: auto;
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+        #text {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        #sureText {
+            font-size: 20px;
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
+        }
+        #text-yes {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            color: red;
+            opacity: 0.8;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="your-song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <img id="image" src="valentinepic.png" alt="Custom Image">
+    <div id="text">Will you be my Valentine?</div>
+    
+    <div class="buttons" id="buttonContainer">
+        <button id="yes" onclick="sayYes()">Yes</button>
+        <button id="no" onclick="sayNo()">No</button>
+    </div>
+    
+    <div id="sureText"></div>
+    <div id="text-yes" style="display: none;"></div>
+
+    <script>
+        let yesSize = 18;
+        const noMessages = [
+            "do u not love me...",
+            "why u dont wanna be my valentine:(",
+            "are u going to leeave me",
+            "say yes or im going to kill myself",
+            "you really hate me huh",
+            "is this your way of breaking up with me",
+            "wow",
+            "get hit by a car",
+            "u is a hoe",
+            "this is super mean u hate me so much i hope u get ur period and i hope it hurts rlly rlly bad and i hope ull piss ur pants in public and shart and everyone will laugh at u and then i hope u get hit by a car so u turn deformed and ugly and no one will ever love you and youll come back crawling back to me"
+        ];
+
+        const noImages = ["valentine.png", "valentine.png", "valentine.png"];
+        let noClickCount = 0;
+
+        function sayYes() {
+            console.log("Yes button clicked");
+            document.getElementById("image").style.display = "none";
+            document.getElementById("text").style.display = "none";
+            document.getElementById("text-yes").innerText = "YIPPPEIUEUYYIPEIU HHAHH YOU LOVES MEEAHHH I LOVE YOUS O M UCH KIVCKS FEET TWOLRSN HARI YOUERE MY WIFE ASF I LOBE U SO MUHV AH M SO ECITED HAOP YHAPY BOU";
+            document.getElementById("text-yes").style.display = "block";
+            document.getElementById("buttonContainer").style.display = "none";
+            document.getElementById("sureText").style.display = "none";
+
+            let valentineAudio = new Audio("Yippee.mp3");
+            valentineAudio.play();
+
+            confetti({
+                particleCount: 150,
+                spread: 60,
+                origin: { y: 0.6 }
+            });
+
+            generateFloatingHearts();
+
+            setTimeout(() => {
+                console.log("Redirecting to valentine4.html");
+                window.location.href = "valentine4.html";
+            }, 5000);
+        }
+
+        function sayNo() {
+            console.log("No button clicked, click count: " + noClickCount);
+            yesSize += 5;
+            document.getElementById("yes").style.fontSize = yesSize + "px";
+
+            let randomMessage = noMessages[noClickCount % noMessages.length];
+            console.log("Displaying message: " + randomMessage);
+            document.getElementById("sureText").innerText = randomMessage;
+            document.getElementById("sureText").style.display = "block";
+
+            document.getElementById("image").src = noImages[noClickCount % noImages.length];
+            noClickCount++;
+        }
+
+        function generateFloatingHearts() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement("div");
+                    heart.classList.add("heart");
+                    heart.innerHTML = "❤️";
+                    heart.style.left = Math.random() * 100 + "vw";
+                    heart.style.top = "100vh";
+                    heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 200);
+            }
+        }
+    
+function createFloatingSymbols() {
+    const container = document.body; // Changed to document.body to make sure symbols appear
+    setInterval(() => {
+        let symbol = document.createElement("div");
+        symbol.className = "floating-symbol";
+        symbol.innerHTML = "˚ʚ♡ɞ˚";
+        
+        symbol.style.position = "fixed"; // Ensure positioning works
+        symbol.style.left = `${Math.random() * 100}vw`;
+        symbol.style.top = `${Math.random() * 100}vh`;
+        symbol.style.fontSize = "24px";
+        symbol.style.color = "red";
+        symbol.style.opacity = "0.8";
+
+        container.appendChild(symbol);
+        setTimeout(() => {
+            symbol.remove();
+        }, 5000);
+    }, 500);
+}
+
+createFloatingSymbols();
+
+    </script>
+
+</body>
+</html>
